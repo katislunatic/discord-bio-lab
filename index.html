@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discord Toolkit</title>
+<style>
+  body { font-family:'Segoe UI',sans-serif; background:#1e1f22; color:#fff; margin:0; padding:0; text-align:center; }
+  header { background:#5865F2; padding:30px; }
+  header h1 { margin:0; font-size:2.5rem; }
+  nav { display:flex; justify-content:center; margin:20px 0; }
+  nav button { background:#2c2f33; border:none; padding:10px 20px; margin:0 5px; color:#fff; cursor:pointer; border-radius:8px; transition:0.3s; }
+  nav button:hover, nav button.active { background:#5865F2; }
+  main { max-width:700px; margin:auto; padding:20px; }
+  .tab { display:none; text-align:left; }
+  input, textarea, select { width:100%; padding:12px; margin-bottom:15px; border:none; border-radius:8px; background:#23272a; color:#fff; }
+  button.action { padding:12px 20px; background:#5865F2; border:none; border-radius:8px; color:#fff; cursor:pointer; margin-right:10px; }
+  button.action:hover { background:#4752c4; }
+  .output { background:#23272a; padding:15px; border-radius:10px; margin-top:15px; white-space:pre-wrap; font-family:monospace; }
+  .emoji-pack { display:flex; justify-content:center; flex-wrap:wrap; margin-bottom:20px; }
+  .emoji { font-size:2rem; padding:10px; cursor:pointer; transition:transform 0.2s; }
+  .emoji:hover { transform:scale(1.3); }
+  .preview { background:#2c2f33; padding:20px; border-radius:14px; margin-bottom:20px; display:flex; flex-direction:column; align-items:center; }
+  .banner { width:100%; height:120px; background:#404eed; border-radius:10px; margin-bottom:15px; display:flex; align-items:center; justify-content:center; font-size:2rem; }
+  .icon { width:80px; height:80px; background:#43b581; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem; color:#fff; margin-bottom:10px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Discord Toolkit</h1>
+</header>
+
+<nav>
+  <button class="tab-btn active" onclick="openTab('bio')">Bio Builder</button>
+  <button class="tab-btn" onclick="openTab('emoji')">Emoji Gallery</button>
+  <button class="tab-btn" onclick="openTab('banner')">Banner & Icon</button>
+</nav>
+
+<main>
+  <!-- Aesthetic Bio Builder -->
+  <div id="bio" class="tab" style="display:block;">
+    <label for="bioText">Enter Bio</label>
+    <textarea id="bioText" placeholder="Type your bio..."></textarea>
+    <label for="bioStyle">Choose Style</label>
+    <select id="bioStyle">
+      <option value="stars">★ Stars</option>
+      <option value="waves">~ Waves ~</option>
+      <option value="hearts">❤ Hearts</option>
+    </select>
+    <button class="action" onclick="buildBio()">Generate Bio</button>
+    <div class="output" id="bioOutput">Your aesthetic bio will appear here...</div>
+  </div>
+
+  <!-- Emoji Pack Gallery -->
+  <div id="emoji" class="tab">
+    <div class="emoji-pack">
+      <span class="emoji" onclick="copyEmoji('😀')">😀</span>
+      <span class="emoji" onclick="copyEmoji('😂')">😂</span>
+      <span class="emoji" onclick="copyEmoji('😍')">😍</span>
+      <span class="emoji" onclick="copyEmoji('🤩')">🤩</span>
+      <span class="emoji" onclick="copyEmoji('🔥')">🔥</span>
+    </div>
+    <div class="output" id="emojiOutput">Click an emoji to copy it!</div>
+  </div>
+
+  <!-- Banner & Icon Templates -->
+  <div id="banner" class="tab">
+    <label for="bannerText">Banner Text</label>
+    <input type="text" id="bannerText" placeholder="Type banner text...">
+    <label for="iconText">Icon Text</label>
+    <input type="text" id="iconText" placeholder="Type icon text...">
+    <button class="action" onclick="updatePreview()">Preview</button>
+    <div class="preview">
+      <div class="banner" id="bannerPreview">BANNER</div>
+      <div class="icon" id="iconPreview">ICON</div>
+    </div>
+  </div>
+</main>
+
+<script>
+function openTab(tabId){
+  document.querySelectorAll('.tab').forEach(t => t.style.display='none');
+  document.getElementById(tabId).style.display='block';
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+}
+
+// Bio Builder
+function buildBio(){
+  let bio = document.getElementById('bioText').value;
+  let style = document.getElementById('bioStyle').value;
+  let decorated = bio;
+  if(style==='stars') decorated=`★ ${bio} ★`;
+  if(style==='waves') decorated=`~ ${bio} ~`;
+  if(style==='hearts') decorated=`❤ ${bio} ❤`;
+  document.getElementById('bioOutput').textContent=decorated;
+}
+
+// Emoji Gallery
+function copyEmoji(emoji){
+  navigator.clipboard.writeText(emoji).then(()=>{document.getElementById('emojiOutput').textContent=`Copied: ${emoji}`;});
+}
+
+// Banner & Icon
+function updatePreview(){
+  document.getElementById('bannerPreview').textContent=document.getElementById('bannerText').value||"BANNER";
+  document.getElementById('iconPreview').textContent=document.getElementById('iconText').value||"ICON";
+}
+</script>
+
+</body>
+</html>
