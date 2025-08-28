@@ -85,21 +85,20 @@ function openTab(tabId){
 }
 
 // Bio styles and templates
-const bioStyles = ['★ {bio} ★','~ {bio} ~','❤ {bio} ❤','✧ {bio} ✧','⚡ {bio} ⚡','☁ {bio} ☁','❀ {bio} ❀','☀ {bio} ☀','❄ {bio} ❄','✦ {bio} ✦'];
+const bioStyles = [
+  '★ {bio} ★','~ {bio} ~','❤ {bio} ❤','✧ {bio} ✧','⚡ {bio} ⚡','☁ {bio} ☁','❀ {bio} ❀','☀ {bio} ☀','❄ {bio} ❄','✦ {bio} ✦'
+];
+
 const bioTemplates = [
-  '✧ Happy Vibes ✧',
-  '❤ Love Life ❤',
-  '⚡ Stay Awesome ⚡',
-  '☁ Dream Big ☁',
-  '❀ Blossom ❀',
-  '★ Shining Star ★'
+  '✧ Happy Vibes ✧','❤ Love Life ❤','⚡ Stay Awesome ⚡','☁ Dream Big ☁','❀ Blossom ❀','★ Shining Star ★',
+  '✧ {name} ☁ {pronouns} ✧','★ {name} ★ ⬩ {age} ⬩ {zodiac}','♡ {name} ♡ ｡☆ {mbti} ☆｡','☀ {name} ☀ - {link}','⚡ {name} ⚡ | {extra}'
 ];
 
 const bioStyleSelect = document.getElementById('bioStyle');
 bioStyles.forEach(s => {
   const option = document.createElement('option');
   option.value = s;
-  option.textContent = s.replace('{bio}', 'YourBio');
+  option.textContent = s.replace('{bio}','YourBio');
   bioStyleSelect.appendChild(option);
 });
 
@@ -107,7 +106,7 @@ const bioTemplatesDiv = document.getElementById('bioTemplates');
 bioTemplates.forEach(t => {
   const div = document.createElement('div');
   div.className='template';
-  div.textContent = t;
+  div.textContent=t;
   div.onclick=()=>{document.getElementById('bioText').value=t; buildBio();};
   bioTemplatesDiv.appendChild(div);
 });
@@ -120,7 +119,7 @@ function buildBio(){
 }
 
 // Emoji Gallery
-const emojis = ['😀','😂','😍','🤩','🔥','✨','🎉','👍','💖','😎','🤔','💯','💀','👀','🎶','🌈','⚡','🍕','☁','⭐']; // You can expand to full Unicode list
+const emojis = ['😀','😂','😍','🤩','🔥','✨','🎉','👍','💖','😎','🤔','💯','💀','👀','🎶','🌈','⚡','🍕','☁','⭐','🌙','🌸','🥰','😜','🤪','😇','🤯','😱','🙃','😉','💤','🥳','🤤','😻']; // expandable
 const emojiPackDiv = document.getElementById('emojiPack');
 emojis.forEach(e=>{
   const span=document.createElement('span');
