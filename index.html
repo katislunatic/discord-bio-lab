@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Discord Toolkit</title>
-<style>
-  body { font-family:'Segoe UI',sans-serif; background:#1e1f22; color:#fff; margin:0; padding:0; text-align:center; }
-  header { background:#5865F2; padding:30px; }
-  header h1 { margin:0; font-size:2.5rem; }
-  nav { display:flex; justify-content:center; margin:20px 0; flex-wrap:wrap; }
-  nav button { background:#2c2f33; border:none; padding:10px 20px; margin:5px; color:#fff; cursor:pointer; border-radius:8px; transition:0.3s; }
-  nav button:hover, nav button.active { background:#5865F2; }
-  main { max-width:700px; margin:auto; padding:20px; }
-  .tab { display:none; text-align:left; }
-  input, textarea, select { width:100%; padding:12px; margin-bottom:15px; border:none; border-radius:8px; background:#23272a; color:#fff; }
-  button.action { padding:12px 20px; background:#5865F2; border:none; border-radius:8px; color:#fff; cursor:pointer; margin-right:10px; }
-  button.action:hover { background:#4752c4; }
-  .output { background:#23272a; padding:15px; border-radius:10px; margin-top:15px; white-space:pre-wrap; font-family:monospace; }
-  .emoji-pack { display:flex; justify-content:center; flex-wrap:wrap; margin-bottom:20px; }
-  .emoji { font-size:2rem; padding:10px; cursor:pointer; transition:transform 0.2s; }
-  .emoji:hover { transform:scale(1.3); }
-  .preview { background:#2c2f33; padding:20px; border-radius:14px; margin-bottom:20px; display:flex; flex-direction:column; align-items:center; }
-  .banner { width:100%; height:120px; background:#404eed; border-radius:10px; margin-bottom:15px; display:flex; align-items:center; justify-content:center; font-size:2rem; }
-  .icon { width:80px; height:80px; background:#43b581; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem; color:#fff; margin-bottom:10px; }
-  .template { background:#2c2f33; padding:10px; margin:5px; display:inline-block; cursor:pointer; border-radius:8px; }
-  .template:hover { background:#5865f2; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discord Toolkit</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #1e1f22; color: #fff; margin: 0; padding: 0; text-align: center; }
+    header { background: #5865F2; padding: 30px; }
+    header h1 { margin: 0; font-size: 2.5rem; }
+    nav { display: flex; justify-content: center; margin: 20px 0; flex-wrap: wrap; }
+    nav button { background: #2c2f33; border: none; padding: 10px 20px; margin: 5px; color: #fff; cursor: pointer; border-radius: 8px; transition: 0.3s; }
+    nav button:hover, nav button.active { background: #5865F2; }
+    main { max-width: 700px; margin: auto; padding: 20px; }
+    .tab { display: none; text-align: left; }
+    input, textarea, select { width: 100%; padding: 12px; margin-bottom: 15px; border: none; border-radius: 8px; background: #23272a; color: #fff; }
+    button.action { padding: 12px 20px; background: #5865F2; border: none; border-radius: 8px; color: #fff; cursor: pointer; margin-right: 10px; }
+    button.action:hover { background: #4752c4; }
+    .output { background: #23272a; padding: 15px; border-radius: 10px; margin-top: 15px; white-space: pre-wrap; font-family: monospace; }
+    .emoji-pack { display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .emoji { font-size: 2rem; padding: 10px; cursor: pointer; transition: transform 0.2s; }
+    .emoji:hover { transform: scale(1.3); }
+    .preview { background: #2c2f33; padding: 20px; border-radius: 14px; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; }
+    .banner { width: 100%; height: 120px; background: #404eed; border-radius: 10px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+    .icon { width: 80px; height: 80px; background: #43b581; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; margin-bottom: 10px; }
+    .template { background: #2c2f33; padding: 10px; margin: 5px; display: inline-block; cursor: pointer; border-radius: 8px; }
+    .template:hover { background: #5865f2; }
+  </style>
 </head>
 <body>
 
@@ -41,7 +41,7 @@
 
 <main>
   <!-- Aesthetic Bio Builder -->
-  <div id="bio" class="tab" style="display:block;">
+  <div id="bio" class="tab" style="display: block;">
     <label for="bioText">Enter Bio</label>
     <textarea id="bioText" placeholder="Type your bio..."></textarea>
 
@@ -77,62 +77,69 @@
 
 <script>
 // Tab functionality
-function openTab(tabId){
-  document.querySelectorAll('.tab').forEach(t => t.style.display='none');
-  document.getElementById(tabId).style.display='block';
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+function openTab(tabId) {
+  document.querySelectorAll('.tab').forEach(t => t.style.display = 'none');
+  document.getElementById(tabId).style.display = 'block';
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   event.currentTarget.classList.add('active');
 }
 
 // Bio styles and templates
-const bioStyles = [
-  '★ {bio} ★','~ {bio} ~','❤ {bio} ❤','✧ {bio} ✧','⚡ {bio} ⚡','☁ {bio} ☁','❀ {bio} ❀','☀ {bio} ☀','❄ {bio} ❄','✦ {bio} ✦'
-];
-
+const bioStyles = ['★ {bio} ★', '~ {bio} ~', '❤ {bio} ❤', '✧ {bio} ✧', '⚡ {bio} ⚡', '☁ {bio} ☁', '❀ {bio} ❀', '☀ {bio} ☀', '❄ {bio} ❄', '✦ {bio} ✦'];
 const bioTemplates = [
-  '✧ Happy Vibes ✧','❤ Love Life ❤','⚡ Stay Awesome ⚡','☁ Dream Big ☁','❀ Blossom ❀','★ Shining Star ★',
-  '✧ {name} ☁ {pronouns} ✧','★ {name} ★ ⬩ {age} ⬩ {zodiac}','♡ {name} ♡ ｡☆ {mbti} ☆｡','☀ {name} ☀ - {link}','⚡ {name} ⚡ | {extra}'
+  '*pronouns* ✩°｡ ⋆⸜ 🎧✮\n-͟͟͞☆ **personality**\n𝗡𝗼𝘄 𝗽𝗹𝗮𝘆𝗶𝗻𝗴:\n"song name - artist"\n01:09 ━━━━●───── 02:17\nㅤ ㅤ◁ㅤ ❚❚ ㅤ▷ ㅤㅤ\n🛸✮☄',
+  '╭ @𝙪𝙨𝙚𝙧𝙣𝙖𝙢𝙚 ♡‧₊˚\n┆❝ proノnouns ❞\n┆⋆˚ 🎞️ ˖° 𝙖𝙜𝙚\n╰ ➤ ᥫ᭡ fav things.',
+  '• ┈ • ┈ • ୨୧ • ┈ • ┈ •\n┊  ┊  ┊  ┊  ┊\n┊  ┊  ┊  ┊  ┊\n┊  ┊  ┊  ┊  ★ ₊ . ° . ⋆\n┊  ┊  ┊. ✧ ° . • name\n┊  ┊° .✫ ﾟ. ꒷꒦ age\n┊  ✦ ₊° . pronouns\n☆\n╰➜ text here ° . ≠ . ıllıllı . ꒷꒦\n• ┈ • ┈ • ୨୧ • ┈ • ┈ •'
 ];
 
+// Populate bio styles
 const bioStyleSelect = document.getElementById('bioStyle');
 bioStyles.forEach(s => {
   const option = document.createElement('option');
   option.value = s;
-  option.textContent = s.replace('{bio}','YourBio');
+  option.textContent = s.replace('{bio}', 'YourBio');
   bioStyleSelect.appendChild(option);
 });
 
+// Populate bio templates
 const bioTemplatesDiv = document.getElementById('bioTemplates');
 bioTemplates.forEach(t => {
   const div = document.createElement('div');
-  div.className='template';
-  div.textContent=t;
-  div.onclick=()=>{document.getElementById('bioText').value=t; buildBio();};
+  div.className = 'template';
+  div.textContent = t.split('\n')[0]; // Display only the first line
+  div.onclick = () => {
+    document.getElementById('bioText').value = t;
+    buildBio();
+  };
   bioTemplatesDiv.appendChild(div);
 });
 
-function buildBio(){
+// Build bio
+function buildBio() {
   let bio = document.getElementById('bioText').value;
   let style = document.getElementById('bioStyle').value;
   let decorated = style.replace('{bio}', bio);
-  document.getElementById('bioOutput').textContent=decorated;
+  document.getElementById('bioOutput').textContent = decorated;
 }
 
 // Emoji Gallery
-const emojis = ['😀','😂','😍','🤩','🔥','✨','🎉','👍','💖','😎','🤔','💯','💀','👀','🎶','🌈','⚡','🍕','☁','⭐','🌙','🌸','🥰','😜','🤪','😇','🤯','😱','🙃','😉','💤','🥳','🤤','😻']; // expandable
+const emojis = ['😀', '😂', '😍', '🤩', '🔥', '✨', '🎉', '👍', '💖', '😎', '🤔', '💯', '💀', '👀', '🎶', '🌈', '⚡', '🍕', '☁', '⭐']; // You can expand to full Unicode list
 const emojiPackDiv = document.getElementById('emojiPack');
-emojis.forEach(e=>{
-  const span=document.createElement('span');
-  span.className='emoji';
-  span.textContent=e;
-  span.onclick=()=>{navigator.clipboard.writeText(e); document.getElementById('emojiOutput').textContent=`Copied: ${e}`;};
+emojis.forEach(e => {
+  const span = document.createElement('span');
+  span.className = 'emoji';
+  span.textContent = e;
+  span.onclick = () => {
+    navigator.clipboard.writeText(e);
+    document.getElementById('emojiOutput').textContent = `Copied: ${e}`;
+  };
   emojiPackDiv.appendChild(span);
 });
 
 // Banner & Icon
-function updatePreview(){
-  document.getElementById('bannerPreview').textContent=document.getElementById('bannerText').value||"BANNER";
-  document.getElementById('iconPreview').textContent=document.getElementById('iconText').value||"ICON";
+function updatePreview() {
+  document.getElementById('bannerPreview').textContent = document.getElementById('bannerText').value || "BANNER";
+  document.getElementById('iconPreview').textContent = document.getElementById('iconText').value || "ICON";
 }
 </script>
 
