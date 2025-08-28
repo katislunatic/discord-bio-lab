@@ -8,8 +8,8 @@
   body { font-family:'Segoe UI',sans-serif; background:#1e1f22; color:#fff; margin:0; padding:0; text-align:center; }
   header { background:#5865F2; padding:30px; }
   header h1 { margin:0; font-size:2.5rem; }
-  nav { display:flex; justify-content:center; margin:20px 0; }
-  nav button { background:#2c2f33; border:none; padding:10px 20px; margin:0 5px; color:#fff; cursor:pointer; border-radius:8px; transition:0.3s; }
+  nav { display:flex; justify-content:center; margin:20px 0; flex-wrap:wrap; }
+  nav button { background:#2c2f33; border:none; padding:10px 20px; margin:5px; color:#fff; cursor:pointer; border-radius:8px; transition:0.3s; }
   nav button:hover, nav button.active { background:#5865F2; }
   main { max-width:700px; margin:auto; padding:20px; }
   .tab { display:none; text-align:left; }
@@ -23,6 +23,8 @@
   .preview { background:#2c2f33; padding:20px; border-radius:14px; margin-bottom:20px; display:flex; flex-direction:column; align-items:center; }
   .banner { width:100%; height:120px; background:#404eed; border-radius:10px; margin-bottom:15px; display:flex; align-items:center; justify-content:center; font-size:2rem; }
   .icon { width:80px; height:80px; background:#43b581; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem; color:#fff; margin-bottom:10px; }
+  .template { background:#2c2f33; padding:10px; margin:5px; display:inline-block; cursor:pointer; border-radius:8px; }
+  .template:hover { background:#5865f2; }
 </style>
 </head>
 <body>
@@ -42,25 +44,20 @@
   <div id="bio" class="tab" style="display:block;">
     <label for="bioText">Enter Bio</label>
     <textarea id="bioText" placeholder="Type your bio..."></textarea>
+
     <label for="bioStyle">Choose Style</label>
-    <select id="bioStyle">
-      <option value="stars">★ Stars</option>
-      <option value="waves">~ Waves ~</option>
-      <option value="hearts">❤ Hearts</option>
-    </select>
+    <select id="bioStyle"></select>
+
+    <label>Or choose a template:</label>
+    <div id="bioTemplates"></div>
+
     <button class="action" onclick="buildBio()">Generate Bio</button>
     <div class="output" id="bioOutput">Your aesthetic bio will appear here...</div>
   </div>
 
   <!-- Emoji Pack Gallery -->
   <div id="emoji" class="tab">
-    <div class="emoji-pack">
-      <span class="emoji" onclick="copyEmoji('😀')">😀</span>
-      <span class="emoji" onclick="copyEmoji('😂')">😂</span>
-      <span class="emoji" onclick="copyEmoji('😍')">😍</span>
-      <span class="emoji" onclick="copyEmoji('🤩')">🤩</span>
-      <span class="emoji" onclick="copyEmoji('🔥')">🔥</span>
-    </div>
+    <div class="emoji-pack" id="emojiPack"></div>
     <div class="output" id="emojiOutput">Click an emoji to copy it!</div>
   </div>
 
@@ -79,6 +76,7 @@
 </main>
 
 <script>
+// Tab functionality
 function openTab(tabId){
   document.querySelectorAll('.tab').forEach(t => t.style.display='none');
   document.getElementById(tabId).style.display='block';
@@ -86,21 +84,51 @@ function openTab(tabId){
   event.currentTarget.classList.add('active');
 }
 
-// Bio Builder
+// Bio styles and templates
+const bioStyles = ['★ {bio} ★','~ {bio} ~','❤ {bio} ❤','✧ {bio} ✧','⚡ {bio} ⚡','☁ {bio} ☁','❀ {bio} ❀','☀ {bio} ☀','❄ {bio} ❄','✦ {bio} ✦'];
+const bioTemplates = [
+  '✧ Happy Vibes ✧',
+  '❤ Love Life ❤',
+  '⚡ Stay Awesome ⚡',
+  '☁ Dream Big ☁',
+  '❀ Blossom ❀',
+  '★ Shining Star ★'
+];
+
+const bioStyleSelect = document.getElementById('bioStyle');
+bioStyles.forEach(s => {
+  const option = document.createElement('option');
+  option.value = s;
+  option.textContent = s.replace('{bio}', 'YourBio');
+  bioStyleSelect.appendChild(option);
+});
+
+const bioTemplatesDiv = document.getElementById('bioTemplates');
+bioTemplates.forEach(t => {
+  const div = document.createElement('div');
+  div.className='template';
+  div.textContent = t;
+  div.onclick=()=>{document.getElementById('bioText').value=t; buildBio();};
+  bioTemplatesDiv.appendChild(div);
+});
+
 function buildBio(){
   let bio = document.getElementById('bioText').value;
   let style = document.getElementById('bioStyle').value;
-  let decorated = bio;
-  if(style==='stars') decorated=`★ ${bio} ★`;
-  if(style==='waves') decorated=`~ ${bio} ~`;
-  if(style==='hearts') decorated=`❤ ${bio} ❤`;
+  let decorated = style.replace('{bio}', bio);
   document.getElementById('bioOutput').textContent=decorated;
 }
 
 // Emoji Gallery
-function copyEmoji(emoji){
-  navigator.clipboard.writeText(emoji).then(()=>{document.getElementById('emojiOutput').textContent=`Copied: ${emoji}`;});
-}
+const emojis = ['😀','😂','😍','🤩','🔥','✨','🎉','👍','💖','😎','🤔','💯','💀','👀','🎶','🌈','⚡','🍕','☁','⭐']; // You can expand to full Unicode list
+const emojiPackDiv = document.getElementById('emojiPack');
+emojis.forEach(e=>{
+  const span=document.createElement('span');
+  span.className='emoji';
+  span.textContent=e;
+  span.onclick=()=>{navigator.clipboard.writeText(e); document.getElementById('emojiOutput').textContent=`Copied: ${e}`;};
+  emojiPackDiv.appendChild(span);
+});
 
 // Banner & Icon
 function updatePreview(){
